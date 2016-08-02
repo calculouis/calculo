@@ -1,0 +1,65 @@
+PRIMER PUNTO
+
+def mixed_sampling(n):
+    import numpy as np
+    c=0
+    d=0
+    a = np.random.normal(loc=0, scale=1, size=n)
+    for i in range (n):
+        if (a[i]>0.5):
+            c=c+1
+        else:
+            d=d+1
+    e =np.random.normal(loc=4, scale=1.5, size=c)
+    f =np.random.normal(loc=8, scale=1, size=d)
+    muestras = np.concatenate((e,f))
+    return muestras
+
+import urllib, inspect
+src1 = urllib.quote_plus(inspect.getsource(mixed_sampling))
+
+
+SEGUNDO PUNTO
+
+def smooth(S,w, sigma_r):
+    import numpy as np
+    r = np.zeros(len(S)-2*w)
+    for i in range(2*w,len(S)):
+        r[i-2*w] = np.mean(S[i-2*w:i])
+
+    return r+np.random.normal(scale=sigma_r,size=len(r))
+
+import urllib, inspect
+src2 = urllib.quote_plus(inspect.getsource(smooth))
+
+TERCER PUNTO
+
+def apply_model(s,F,nt):
+
+    import numpy as np
+    for i in range(nt):
+        temp=np.dot(F,s)
+        s=temp
+    r = s
+
+    return r
+
+import urllib, inspect
+src3 = urllib.quote_plus(inspect.getsource(apply_model))
+
+
+
+CUARTO PUNTO
+
+def particles_probability(particles, prob_function):
+
+    import numpy as np
+
+    jointprob = 1.0
+    for i in range(len(particles)):
+        jointprob *= prob_function(particles[i][0],particles[i][1])
+
+    return jointprob
+
+import urllib, inspect
+src4 = urllib.quote_plus(inspect.getsource(particles_probability))
